@@ -1,4 +1,4 @@
-const express = require('express');
+﻿const express = require('express');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const fs = require('fs');
@@ -76,7 +76,7 @@ function filterCards(query) {
 
     if (query.name && !includesText(card.name, query.name) && !includesText(card.fullName, query.name)) return false;
     if (query.set && !exactText(card.setCode, query.set)) return false;
-    if (query.color && !exactText(card.color, query.color)) return false;
+    if (query.ink && !exactText(card.ink, query.ink)) return false;
     if (query.rarity && !exactText(card.rarity, query.rarity)) return false;
     if (query.type && !exactText(card.type, query.type)) return false;
     if (query.story && !includesText(card.story, query.story)) return false;
@@ -213,7 +213,7 @@ const openapi = {
   info: {
     title: 'Lorcana DE API',
     version: '1.0.0',
-    description: 'REST API für die deutsche Lorcana-Kartendatei allCards.json.'
+    description: 'REST API fÃ¼r die deutsche Lorcana-Kartendatei allCards.json.'
   },
   servers: [{ url: '/' }],
   paths: {
@@ -221,9 +221,9 @@ const openapi = {
       get: {
         summary: 'Karten auflisten und filtern',
         parameters: [
-          ['q','Volltextsuche'], ['name','Kartenname'], ['set','Set-Code'], ['color','Farbe'], ['rarity','Seltenheit'], ['type','Kartentyp'],
-          ['story','Story'], ['subtype','Untertyp'], ['artist','Künstler'], ['keyword','Keyword-Fähigkeit'], ['cost','Kosten'], ['lore','Legendenwert'],
-          ['strength','Stärke'], ['willpower','Willenskraft'], ['inkwell','true/false'], ['core','Core legal true/false'], ['infinity','Infinity legal true/false'],
+          ['q','Volltextsuche'], ['name','Kartenname'], ['set','Set-Code'], ['ink','Tintenfarbe'], ['rarity','Seltenheit'], ['type','Kartentyp'],
+          ['story','Story'], ['subtype','Untertyp'], ['artist','KÃ¼nstler'], ['keyword','Keyword-FÃ¤higkeit'], ['cost','Kosten'], ['lore','Legendenwert'],
+          ['strength','StÃ¤rke'], ['willpower','Willenskraft'], ['inkwell','true/false'], ['core','Core legal true/false'], ['infinity','Infinity legal true/false'],
           ['page','Seite'], ['limit','1-250'], ['sort','Sortierfeld'], ['order','asc/desc']
         ].map(([name, description]) => ({ name, in: 'query', schema: { type: 'string' }, description })),
         responses: { '200': { description: 'Liste von Karten' } }
@@ -275,7 +275,8 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Lorcana DE API läuft auf http://localhost:${PORT}`);
+  console.log(`Lorcana DE API lÃ¤uft auf http://localhost:${PORT}`);
   console.log(`Swagger: http://localhost:${PORT}/api/docs`);
   console.log(`${cards.length} Karten und ${Object.keys(sets).length} Sets geladen.`);
 });
+
